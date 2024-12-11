@@ -44,7 +44,7 @@ const Home = () => {
         //getPosts();
 
         return ()=>{
-            supabase.removeChannel('posts');
+            supabase.removeChannel(postChannel);
         }
     }, [])
 
