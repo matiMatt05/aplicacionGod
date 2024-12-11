@@ -15,10 +15,25 @@ export const getUserImageSrc = imagePath =>{
 export const getSupabaseFileUrl = filePath =>{
     if(filePath){
         return {uri: `${supabaseUrl}/storage/v1/object/public/uploads/${filePath}`}
-
     }
     return null;
 }
+
+
+export const downloadFile = async (url)=>{
+    try{
+        const {uri} = await FileSystem.downloadAsync(url, getLocalFilePath(url));
+        return uri;
+    }catch(error){
+        return null;
+    }
+}
+
+export const getLocalFilePath = filePath => {
+    let fileName = filePath.split('/').pop();
+    return `${FileSystem.documentDirectory}${fileName}`;
+}
+
 
 export const uploadFile = async (folderName, fileUri, isImage=true)=>{
     try{
